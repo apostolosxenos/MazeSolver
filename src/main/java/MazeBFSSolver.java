@@ -33,11 +33,11 @@ public class MazeBFSSolver {
 
     /**
      * Determines the availability of next node and move to it until it reaches to the finishing point.
-     * Each successful move is added to the path.
+     * Each successful move is added to the path. It runs recursively until it either reaches to the finishing point or to a deadlock.
      *
      * @param row   Row
      * @param col   Column
-     * @return  True if it reaches the finishing point. Otherwise
+     * @return      true if it reaches the finishing point or false if there is no available node to move.
      */
     private boolean explore(int row, int col) {
 
