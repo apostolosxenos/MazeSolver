@@ -1,4 +1,11 @@
+import algorithm.MazeBFSSolver;
+import maze.Maze;
+import maze.MazeCoordinate;
+import service.MazeBuilder;
+
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +14,10 @@ public class Main {
 
         String filePath;
 
-        if (args.length == 0) {
+        if (Files.exists(Paths.get("maze.txt"))) {
+            filePath = "maze.txt";
+        }
+        else if (args.length == 0) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("You must specify the full filepath: ");
             filePath = scanner.nextLine();
@@ -22,10 +32,17 @@ public class Main {
         MazeBuilder mb = new MazeBuilder(filePath);
         Maze maze = mb.build();
         maze.printInputSchema();
-
         maze.initialize();
 
         MazeBFSSolver ms = new MazeBFSSolver(maze);
-        ms.solve();
+        List<MazeCoordinate> path = ms.solve();
+
+        if (path.isEmpty())
+            System.out.println("There is no available path.");
+        else {
+            System.out.println("Available path:");
+            System.out.println(path.toString());
+        }
+
     }
 }
